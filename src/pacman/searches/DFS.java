@@ -1,21 +1,21 @@
 package pacman.searches;
 
-import java.util.Collections;
+import java.util.Stack;
 import java.util.LinkedList;
 import java.util.ArrayList;
 import pacman.infrastructure.*;
 
-public class BFS{
+public class DFS{
 
 		
-		Queue<Location> frontier;
+		Stack<Location> frontier;
 		ArrayList<Location> visited;
 		int distance;
 		int numNodes;
 		Location[][] predecessors;
 
-		public BFS(Maze maze){
-			frontier = new LinkedList<Location>();
+		public DFS(Maze maze){
+			frontier = new Stack<Location>();
 			visited = new ArrayList<Location>();
 			predecessors = new Location[maze.width][maze.height];
 			//if the maze stores the goal, should the find solution even return a location?
@@ -28,18 +28,18 @@ public class BFS{
 		//returns the endPoint
 		public Location findSolution(Maze maze){
 
-			froniter.add(maze.getStart());
+			froniter.push(maze.getStart());
 			visited.add(maze.getStart());
 			nodesExpanded = 0;
 			while(!froniter.isEmpty()){
-				Location cur = frontier.remove();
+				Location cur = frontier.pop();
 				ArrayList<Location> adjacents = cur.getAdjacent(maze);
 				numNodes++;
 				for(int i = 0; i<adjacents.size(); i++){
 					Location temp = adjacents.get(i);
 					if(temp.getClassifier() == ' ' || temp.getClassifier() == '.' && !visisted.contains(temp)){
 						predecessors[temp.getx()][temp.gety()] = cur;
-						frontier.add(temp);
+						frontier.push(temp);
 						visited.add(temp);
 						if(temp == maze.getGoal) return temp;
 					}
