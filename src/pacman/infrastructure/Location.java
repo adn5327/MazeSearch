@@ -23,6 +23,7 @@ public class Location{
 	private int x;
 	private int y;
 	private char classifier;
+	// private Heuristic heuristic;
 
 	public Location(int inx, int iny, char typey){
 		x = inx;
@@ -40,6 +41,10 @@ public class Location{
 		return listy;
 	}
 
+	// public Heuristic getHeuristic(){
+	// 	return heuristic;
+	// }
+
 	public int getx(){
 		return x;
 	}
@@ -49,6 +54,11 @@ public class Location{
 	public char getClassifier(){
 		return classifier;
 	}
+
+	// public void setHeuristic(Heuristic h){
+	// 	heuristic = h;
+	// }
+
 	public void setx(int setter){
 		x = setter;
 	}
