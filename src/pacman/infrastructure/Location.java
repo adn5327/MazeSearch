@@ -20,13 +20,42 @@ import java.util.*;
 
 public class Location{
 
-	int x;
-	int y;
-	char classifier;
+	private int x;
+	private int y;
+	private char classifier;
 
 	public Location(int inx, int iny, char typey){
 		x = inx;
 		y = iny;
 		classifier = typey;
+	}
+
+	public ArrayList<Location> getAdjacent(Maze maze){
+		ArrayList<Location> listy = new ArrayList<Location>();
+		if(maze.isValid(x+1, y) listy.add(maze.grid[x+1][y]);
+		if(maze.isValid(x, y+1)) listy.add(maze.grid[x][y+1]);
+		if(maze.isValid(x-1, y)) listy.add(maze.grid[x-1][y]);
+		if(maze.isValid(x, y-1)) listy.add(maze.grid[x][y-1]);
+
+		return listy;
+	}
+
+	public int getx(){
+		return x;
+	}
+	public int gety(){
+		return y;
+	}
+	public char getClassifier(){
+		return classifier;
+	}
+	public void setx(int setter){
+		x = setter;
+	}
+	public void sety(int setter){
+		y = setter;
+	}
+	public void setClassifier(char setter){
+		classifier = setter;
 	}
 }

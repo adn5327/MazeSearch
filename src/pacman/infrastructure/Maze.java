@@ -13,8 +13,8 @@ public class Maze{
 	int width = 0;
 	int height = 0;
 
-	Location start;
-	Location goal;
+	private Location start;
+	private Location goal;
 
 	/*
 	 * current plan is to have the location class
@@ -41,7 +41,7 @@ public class Maze{
 			populateMaze(reader);
 		}
 		catch(IOException e){
-			System.out.prin("Uh-oh. There was an IOException when trying to build the maze itself.");
+			System.out.println("Uh-oh. There was an IOException when trying to build the maze itself.");
 		}
 		// COULD DO SOMETHING LIKE THIS if you don't want to use Paths Library and a try catch block.
 		// Use this method if you do not want to use the nio library.
@@ -90,6 +90,11 @@ public class Maze{
 			}
 		}
 	}
+
+	public boolean isValid(int x, int y){
+		if(x >=0 && x< width && y>= 0 && y<height) return true;
+		return false;
+	}
 	public String toString(){
 
 		StringBuilder sb = new StringBuilder();
@@ -103,6 +108,12 @@ public class Maze{
 
 	}
 
+	public Location getStart(){
+		return start;
+	}
+	public Location getGoal(){
+		return goal;
+	}
 
 }
 
