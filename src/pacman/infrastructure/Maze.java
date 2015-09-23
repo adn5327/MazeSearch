@@ -5,13 +5,13 @@ package pacman.infrastructure;
 //change the wildcards later so as to not include the whole library.
 import java.util.*;
 import java.io.*;
-import java.nio.file.*
+import java.nio.file.*;
 
 public class Maze{
 
-	Location[][] representation; 
-	int width = 0;
-	int height = 0;
+	public Location[][] representation; 
+	public int width = 0;
+	public int height = 0;
 
 	private Location start;
 	private Location goal;
@@ -32,7 +32,7 @@ public class Maze{
 		}
 		catch(IOException e){
 			System.out.println("Uh-oh. There was an IOException when reading the input file.");
-			return null;
+			throw new IOException();
 		}
 
 		representation = new Location[width][height];
@@ -42,6 +42,7 @@ public class Maze{
 		}
 		catch(IOException e){
 			System.out.println("Uh-oh. There was an IOException when trying to build the maze itself.");
+			throw new IOException();
 		}
 		// COULD DO SOMETHING LIKE THIS if you don't want to use Paths Library and a try catch block.
 		// Use this method if you do not want to use the nio library.
@@ -56,7 +57,7 @@ public class Maze{
 	public void populateMaze(BufferedReader reader) throws IOException{
 		String line = reader.readLine();
 		int rowNum = 0;
-		while(line != NULL){
+		while(line != null){
 
 			for(int i = 0; i<width; i++){
 				//will need to count number of dots if we choose to do part two
@@ -100,7 +101,7 @@ public class Maze{
 		StringBuilder sb = new StringBuilder();
 		for(int rowNum = 0; rowNum <height; rowNum++){
 			for(int columnNum = 0; columnNum<width; columnNum++){
-				sb.append(grid[columnNum][rowNum]);
+				sb.append(representation[columnNum][rowNum]);
 			}
 			sb.append(System.lineSeparator());
 		}

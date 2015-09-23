@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<project name = "MazeSearch Project" default = "compile-fullproject">
+
+	<target name = "clean">
+		<delete dir = "build"/>
+	</target>
+
+	<target name = "compile-fullproject">
+		<mkdir dir= "build/classes"/>
+		<javac srcdir="src" destdir="build/classes"/>
+	</target>
+
+</project>

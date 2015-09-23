@@ -33,10 +33,10 @@ public class Location{
 
 	public ArrayList<Location> getAdjacent(Maze maze){
 		ArrayList<Location> listy = new ArrayList<Location>();
-		if(maze.isValid(x+1, y) listy.add(maze.grid[x+1][y]);
-		if(maze.isValid(x, y+1)) listy.add(maze.grid[x][y+1]);
-		if(maze.isValid(x-1, y)) listy.add(maze.grid[x-1][y]);
-		if(maze.isValid(x, y-1)) listy.add(maze.grid[x][y-1]);
+		if(maze.isValid(x+1, y)) listy.add(maze.representation[x+1][y]);
+		if(maze.isValid(x, y+1)) listy.add(maze.representation[x][y+1]);
+		if(maze.isValid(x-1, y)) listy.add(maze.representation[x-1][y]);
+		if(maze.isValid(x, y-1)) listy.add(maze.representation[x][y-1]);
 
 		return listy;
 	}
