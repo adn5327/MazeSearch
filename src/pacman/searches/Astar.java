@@ -13,6 +13,7 @@ public class Astar{
 		int distance;
 		int numNodes;
 		Location[][] predecessors;
+		char direction = 'r';
 
 		public Astar(Maze maze){
 			frontier = new PriorityQueue<Location>(maze.width * maze.height, new AstarComparator(maze));
@@ -85,6 +86,85 @@ public class Astar{
 				}
 			}
 		}
+
+		public int solutionCost(Maze maze, int turnCost, int forwardCost){
+
+			int curX = maze.getStart().getx();
+			int curY = maze.getStart().gety();
+			Location cur = maze.representation[curX][curY];
+			int solutionCost =0;
+			char destDirection = 'r';
+
+			while(cur != maze.getGoal()){
+				if(maze.isValid(curX+1, curY) && maze.representation[curX+1][curY].getClassifier() == '.'){
+					destDirection = 'r';
+					curX = curX +1;
+				} 
+				else if(maze.isValid(curX, curY+1) && maze.representation[curX][curY+1].getClassifier() == '.'){
+					destDirection = 'd';
+					curY = curY+1;
+				} 
+				else if(maze.isValid(curX-1, curY) && maze.representation[curX-1][curY].getClassifier() == '.'){
+					destDirection = 'l';
+					curX = curX -1;
+				} 
+				else if(maze.isValid(curX, curY-1) && maze.representation[curX][curY-1].getClassifier() == '.'){
+					destDirection = 'u';
+					curY = curY -1;
+				} 
+				solutionCost = solutionCost + forwardCost + howManyTurns(direction, destDirection)*turnCost;
+				cur = maze.representation[curX][curY];
+				
+			}
+			return solutionCost;
+
+
+		}
+
+		public int howManyTurns(char curDirection, char destDirection){
+			//right to up or down is one turn - cost = 1*turnCost
+			//left to up or down is one turn - cost = 1*turnCost
+			//right to left OR left to right is two turns = 2*turn cost
+			//up to right or left is one turn
+			//down to right or left is one turn
+			//up to down or down to up is 2 turns
+			direction = destDirection;
+			if(curDirection == 'r'){
+				switch(destDirection){
+					case 'l': return 2;
+					case 'r': return 0;
+					case 'd': return 1;
+					case 'u': return 1;
+				}
+			}
+
+			if(curDirection == 'l'){
+				switch(destDirection){
+					case 'l': return 0;
+					case 'r': return 2;
+					case 'd': return 1;
+					case 'u': return 1;
+				}
+			}
+
+			if(curDirection == 'u'){
+				switch(destDirection){
+					case 'l': return 1;
+					case 'r': return 1;
+					case 'd': return 2;
+					case 'u': return 0;
+				}
+			}
+
+			if(curDirection == 'd'){
+				switch(destDirection){
+					case 'l': return 1;
+					case 'r': return 1;
+					case 'd': return 0;
+					case 'u': return 2;
+				}
+			}
+		}		
 }
 
 
