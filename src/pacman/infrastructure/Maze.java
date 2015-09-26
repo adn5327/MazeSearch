@@ -15,6 +15,7 @@ public class Maze{
 
 	private Location start;
 	private Location goal;
+	private Location ghostStart;
 
 	/*
 	 * current plan is to have the location class
@@ -66,6 +67,7 @@ public class Maze{
 				representation[i][rowNum] = new Location(i, rowNum, curChar);
 				if(curChar == 'P') start = representation[i][rowNum];
 				if(curChar == '.') goal = representation[i][rowNum];
+				if(curChar == 'G') ghostStart = representation[i][rowNum];
 			}
 			rowNum++;
 			line = reader.readLine();
@@ -101,7 +103,7 @@ public class Maze{
 		StringBuilder sb = new StringBuilder();
 		for(int rowNum = 0; rowNum <height; rowNum++){
 			for(int columnNum = 0; columnNum<width; columnNum++){
-				sb.append(representation[columnNum][rowNum]);
+				sb.append(representation[columnNum][rowNum].getClassifier());
 			}
 			sb.append(System.lineSeparator());
 		}
