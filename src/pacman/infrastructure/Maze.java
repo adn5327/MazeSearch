@@ -89,7 +89,7 @@ public class Maze{
 			width = line.length();
 			while(line != null){
 				height++;
-				reader.readLine();
+				line = reader.readLine();
 			}
 		}
 	}
