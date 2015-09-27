@@ -166,6 +166,8 @@ public class Astar{
 					case 'u': return 2;
 				}
 			}
+			//should never reach this line
+			return 0;
 		}		
 }
 
