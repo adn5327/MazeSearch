@@ -84,7 +84,10 @@ public class Astar{
 		public void setAstarHeuristics(Maze maze, Location loc){
 			for(Location loccy : loc.getAdjacent(maze)){
 				if(loccy.getClassifier() == ' ' || loccy.getClassifier() == '.' && !visited.contains(loccy)){
-					loccy.setHeuristic(new AstarHeuristic(loc, maze, solutionForAstar(maze, loccy)));
+					loccy.setHeuristic(new AstarHeuristic(loc, maze, solutionForAstar(maze, loccy), 0));
+					//0 = Manhattan
+					//1 = Euclidean 
+					
 				}
 			}
 		}

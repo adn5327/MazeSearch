@@ -7,9 +7,14 @@ public class AstarHeuristic{
 
 	private int astardist;
 
-	public AstarHeuristic(Location loc, Maze maze, int distToCur){
+	public AstarHeuristic(Location loc, Maze maze, int distToCur, int type){
 
-		astardist = Heuristic.manhattanDistance(loc, maze) + distToCur;
+		if(type == 0)
+			astardist = Heuristic.manhattanDistance(loc, maze) + distToCur;
+		else
+			astardist = Heuristic.euclideanDistance(loc, maze) + distToCur;
+		
+		//added "type" param to specify type of heuristic to use
 
 		//NEEDS TO BE THIS + printSolution(maze, CURRENT POINT) -- that will get us the distance to this point.
 		//This needs to be implemented as a property of the LOCATION CLASS
