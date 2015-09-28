@@ -126,6 +126,59 @@ public class Astar{
 
 		}
 
+		public int ghostSolver(Maze maze){
+			int curX = maze.getStart().getx();
+			int curY = maze.getStart().gety();
+			int ghostX = maze.getGhost().getx();
+			int ghostY = maze.getGhost().gety();
+			Location cur = maze.representation[curX][curY];
+			int lastX;
+			int lastY;
+			int ghostCost = 0;
+			while(cur != maze.getGoal()){
+				lastX = curX;
+				lastY = curY;
+				if(maze.isValid(curX+1, curY) && maze.representation[curX+1][curY].getClassifier() == '.'){
+					curX = curX +1;
+				} 
+				else if(maze.isValid(curX, curY+1) && maze.representation[curX][curY+1].getClassifier() == '.'){
+					curY = curY+1;
+				} 
+				else if(maze.isValid(curX-1, curY) && maze.representation[curX-1][curY].getClassifier() == '.'){
+					curX = curX -1;
+				} 
+				else if(maze.isValid(curX, curY-1) && maze.representation[curX][curY-1].getClassifier() == '.'){
+					curY = curY -1;
+				}		
+				cur = maze.representation[curX][curY];
+				ghostCost++;
+
+				char ghostDir = moveGhost(ghostX, ghostY, maze);
+				if(ghostDir == 'r') ghostX = ghostX+1;
+				else if(ghostDir == 'l') ghostX = ghostX-1;
+				else if(ghostDir == 'u') ghostY = ghostY-1;
+				else if(ghostDir == 'd') ghostY = ghostY+1;
+
+				if( (ghostX == curX && ghostY == curY) || (ghostX==lastX && ghostY == lastY) ){
+					maze.representation[curX][curY].setClassifier('F');
+					return ghostCost;
+				}
+
+			}
+			return ghostCost;
+		}
+		public char moveGhost(int ghostX, int ghostY, Maze maze){
+			if(maze.isValid(ghostX+1, ghostY) && (maze.representation[ghostX+1][ghostY].getClassifier() == 'g' || maze.representation[ghostX+1][ghostY].getClassifier() == 'G'))
+				return 'r';
+			else if(maze.isValid(ghostX-1, ghostY) && (maze.representation[ghostX-1][ghostY].getClassifier() == 'g' || maze.representation[ghostX-1][ghostY].getClassifier() == 'G'))
+				return 'l';
+			else if(maze.isValid(ghostX, ghostY+1) && (maze.representation[ghostX][ghostY+1].getClassifier() == 'g' || maze.representation[ghostX][ghostY+1].getClassifier() == 'G'))
+				return 'd';
+			else if(maze.isValid(ghostX, ghostY-1) && (maze.representation[ghostX][ghostY-1].getClassifier() == 'g' || maze.representation[ghostX][ghostY-1].getClassifier() == 'G'))
+				return 'u';
+			return 'r';
+		}
+
 		public int howManyTurns(char curDirection, char destDirection){
 			//right to up or down is one turn - cost = 1*turnCost
 			//left to up or down is one turn - cost = 1*turnCost

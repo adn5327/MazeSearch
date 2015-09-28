@@ -111,6 +111,10 @@ public class Maze{
 
 	}
 
+	public Location getGhost(){
+		return ghostStart;
+	}
+
 	public Location getStart(){
 		return start;
 	}
