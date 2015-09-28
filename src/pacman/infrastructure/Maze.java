@@ -65,9 +65,15 @@ public class Maze{
 				//also will need to implement if a character is in a spot
 				char curChar = line.charAt(i);
 				representation[i][rowNum] = new Location(i, rowNum, curChar);
+				Location ghostS = new Location (0,0,' ');
+				if(curChar == 'G') ghostS = representation[i][rowNum];
 				if(curChar == 'P') start = representation[i][rowNum];
 				if(curChar == '.') goal = representation[i][rowNum];
-				if(curChar == 'G') ghostStart = representation[i][rowNum];
+
+				if(ghostS != null){
+					ghostStart = ghostS;
+				}
+				//ghostStart is no longer null
 			}
 			rowNum++;
 			line = reader.readLine();
