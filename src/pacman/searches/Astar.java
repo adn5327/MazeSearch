@@ -12,16 +12,18 @@ public class Astar{
 		ArrayList<Location> visited;
 		int distance;
 		int numNodes;
-		Location[][] predecessors;
+		// Location[][] predecessors;
+		HashMap<Location, Location> predecessors;
 		char direction = 'r';
 
 		public Astar(Maze maze){
 			frontier = new PriorityQueue<Location>(maze.width * maze.height, new AstarComparator(maze));
 			visited = new ArrayList<Location>();
-			predecessors = new Location[maze.width][maze.height];
+			// predecessors = new Location[maze.width][maze.height];
+			predecessors = new HashMap<Location, Location>();
 			//if the maze stores the goal, should the find solution even return a location?
 			Location end = findSolution(maze);
-			if(end != null) printSolution(maze);
+			if(end != null) printSolution(maze, end);
 			else distance = -1;
 		}
 
@@ -42,7 +44,7 @@ public class Astar{
 					if((temp.getClassifier() == ' ' || temp.getClassifier() == '.') && (!visited.contains(temp))){
 						//account for ghost characters!!!! otherwise you might never find a solution
 						//if it requires you to go through a ghosts location!!!!
-						predecessors[temp.getx()][temp.gety()] = cur;
+						predecessors.put(temp,cur);
 						frontier.add(temp);
 						visited.add(temp);
 						if(temp.isGoal(maze)) return temp;
@@ -55,30 +57,27 @@ public class Astar{
 
 		//modifies the maze to actually put dots on the visited locations.
 		//the array of predecessors is particularly helpful here
-		public void printSolution(Maze maze){
-			int curX = maze.getGoal().getx();
-			int curY = maze.getGoal().gety();			
+		public void printSolution(Maze maze, Location cur){
 			distance = 0;
 
-			while(curX != maze.getStart().getx() && curY != maze.getStart().gety()){
+			while(predecessors.containsKey(cur)){
 				distance++;
-				maze.representation[curX][curY].setClassifier('.');
-				curX = predecessors[curX][curY].getx();
-				curY = predecessors[curX][curY].gety();
+				cur = predecessors.get(cur);
+				if(!cur.equals(maze.getStart()))
+					cur.setClassifier('.');
 			}
 		}
 
-		public int solutionForAstar(Maze maze, Location loc){
-			int curX = loc.getx();
-			int curY = loc.gety();
-			distance = 0;
+		public int solutionForAstar(Maze maze, Location cur){
+			int distanceAstar = 0;
 
-			while(curX != maze.getStart().getx() && curY != maze.getStart().gety()){
-				distance++;
-				curX = predecessors[curX][curY].getx();
-				curY = predecessors[curX][curY].gety();
+			while(predecessors.containsKey(cur)){
+				distanceAstar++;
+				cur = predecessors.get(cur);
+				if(!cur.equals(maze.getStart()))
+					cur.setClassifier('.');
 			}
-			return distance;
+			return distanceAstar;
 		}
 
 		public void setAstarHeuristics(Maze maze, Location loc){
