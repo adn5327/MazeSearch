@@ -35,7 +35,7 @@ public class BFS{
 				numNodes++;
 				for(int i = 0; i<adjacents.size(); i++){
 					Location temp = adjacents.get(i);
-					if((temp.getClassifier() == ' ' || temp.getClassifier() == '.') && (!visited.contains(temp)){
+					if((temp.getClassifier() == ' ' || temp.getClassifier() == '.') && (!visited.contains(temp))){
 						predecessors[temp.getx()][temp.gety()] = cur;
 						frontier.add(temp);
 						visited.add(temp);

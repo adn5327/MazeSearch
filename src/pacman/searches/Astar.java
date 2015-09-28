@@ -45,7 +45,7 @@ public class Astar{
 						predecessors[temp.getx()][temp.gety()] = cur;
 						frontier.add(temp);
 						visited.add(temp);
-						if(temp.isGoal()) return temp;
+						if(temp.isGoal(maze)) return temp;
 					}
 				}
 			}

@@ -1,13 +1,26 @@
 <?xml version="1.0"?>
-<project name = "MazeSearch Project" default = "compile-fullproject">
+<project name = "MazeSearch Project" default = "compile">
 
 	<target name = "clean">
 		<delete dir = "build"/>
 	</target>
 
-	<target name = "compile-fullproject">
+	<target name = "compile">
 		<mkdir dir= "build/classes"/>
 		<javac srcdir="src" destdir="build/classes"/>
+	</target>
+
+	<target name = "jar">
+		<mkdir dir = "build/jar"/>
+		<jar destfile="build/jar/MazeSearch.jar" basedir="build/classes">
+			<manifest>
+				<attribute name="Main-Class" value="pacman.Main"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name = "run">
+		<java jar="build/jar/MazeSearch.jar" fork="true"/>
 	</target>
 
 </project>
