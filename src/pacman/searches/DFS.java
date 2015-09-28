@@ -11,6 +11,7 @@ public class DFS{
 		int distance;
 		int numNodes;
 		// Location[][] predecessors;
+		HashMap<Location, Location> predecessors;
 
 		public DFS(Maze maze){
 			frontier = new Stack<Location>();
