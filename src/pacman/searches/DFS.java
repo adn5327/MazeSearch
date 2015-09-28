@@ -35,11 +35,11 @@ public class DFS{
 				numNodes++;
 				for(int i = 0; i<adjacents.size(); i++){
 					Location temp = adjacents.get(i);
-					if(temp.getClassifier() == ' ' || temp.getClassifier() == '.' && !visited.contains(temp)){
+					if((temp.getClassifier() == ' ' || temp.getClassifier() == '.') && (!visited.contains(temp)){
 						predecessors[temp.getx()][temp.gety()] = cur;
 						frontier.push(temp);
 						visited.add(temp);
-						if(temp == maze.getGoal()) return temp;
+						if(temp.isGoal(maze)) return temp;
 					}
 				}
 			}

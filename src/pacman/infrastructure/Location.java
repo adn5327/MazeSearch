@@ -41,6 +41,11 @@ public class Location{
 		return listy;
 	}
 
+	public boolean isGoal(Maze maze){
+		if( x == maze.getGoal().getx() && y == maze.getGoal().gety()) return true;
+		return false;
+	}
+
 	public AstarHeuristic getHeuristic(){
 		return heuristic;
 	}
