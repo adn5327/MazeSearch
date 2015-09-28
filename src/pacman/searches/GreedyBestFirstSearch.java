@@ -18,7 +18,7 @@ public class GreedyBestFirstSearch{
 			frontier = new PriorityQueue<Location>(maze.width * maze.height, new LocationComparator(maze));
 			visited = new ArrayList<Location>();
 			// predecessors = new Location[maze.width][maze.height];
-			predecessors = new HashMap<Location, Location>;
+			predecessors = new HashMap<Location, Location>();
 			//if the maze stores the goal, should the find solution even return a location?
 			Location end = findSolution(maze);
 			if(end != null) printSolution(maze, end);
