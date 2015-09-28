@@ -15,6 +15,8 @@ public class Astar{
 		// Location[][] predecessors;
 		HashMap<Location, Location> predecessors;
 		char direction = 'r';
+		int turnCosts;
+		int forwardCosts;
 
 		public Astar(Maze maze){
 			frontier = new PriorityQueue<Location>(maze.width * maze.height, new AstarComparator(maze));
@@ -25,6 +27,19 @@ public class Astar{
 			Location end = findSolution(maze);
 			if(end != null) printSolution(maze, end);
 			else distance = -1;
+		}
+
+		public Astar(Maze maze, int turnC, int forwardC){
+			frontier = new PriorityQueue<Location>(maze.width * maze.height, new AstarComparator(maze));
+			visited = new ArrayList<Location>();
+			// predecessors = new Location[maze.width][maze.height];
+			predecessors = new HashMap<Location, Location>();
+			//if the maze stores the goal, should the find solution even return a location?
+			Location end = findSolution(maze);
+			if(end != null) printSolution(maze, end);
+			else distance = -1;
+			turnCosts = turnC;
+			forwardCosts = forwardC;
 		}
 
 		//explores the maze to find the solution needed
@@ -80,10 +95,18 @@ public class Astar{
 			return distanceAstar;
 		}
 
+		public void setTurnHeuristics(Maze maze, Location loc){
+			for(Location loccy : loc.getAdjacent(maze)){
+				if(loccy.getClassifier() == ' ' || loccy.getClassifier() == '.' && !visited.contains(loccy)){
+					loccy.setTurnHeuristic(new AstarHeuristic(loccy, maze, solutionForAstar(maze, loc), 1, solutionCost(maze, loccy)));
+				}
+			}
+		}
+
 		public void setAstarHeuristics(Maze maze, Location loc){
 			for(Location loccy : loc.getAdjacent(maze)){
 				if(loccy.getClassifier() == ' ' || loccy.getClassifier() == '.' && !visited.contains(loccy)){
-					loccy.setHeuristic(new AstarHeuristic(loc, maze, solutionForAstar(maze, loccy), 0));
+					loccy.setHeuristic(new AstarHeuristic(loccy, maze, solutionForAstar(maze, loc), 0, 0));
 					//0 = Manhattan
 					//1 = Euclidean 
 					
@@ -91,15 +114,15 @@ public class Astar{
 			}
 		}
 
-		public int solutionCost(Maze maze, int turnCost, int forwardCost){
+		public int solutionCost(Maze maze, Location loc){
 
 			int curX = maze.getStart().getx();
 			int curY = maze.getStart().gety();
 			Location cur = maze.representation[curX][curY];
-			int solutionCost =0;
+			int solutionCostVar =0;
 			char destDirection = 'r';
 
-			while(cur != maze.getGoal()){
+			while(cur != loc){
 				if(maze.isValid(curX+1, curY) && maze.representation[curX+1][curY].getClassifier() == '.'){
 					destDirection = 'r';
 					curX = curX +1;
@@ -116,11 +139,11 @@ public class Astar{
 					destDirection = 'u';
 					curY = curY -1;
 				} 
-				solutionCost = solutionCost + forwardCost + howManyTurns(direction, destDirection)*turnCost;
+				solutionCostVar = solutionCostVar + forwardCosts + howManyTurns(direction, destDirection)*turnCosts;
 				cur = maze.representation[curX][curY];
 				
 			}
-			return solutionCost;
+			return solutionCostVar;
 
 
 		}

@@ -24,6 +24,7 @@ public class Location{
 	private int y;
 	private char classifier;
 	private AstarHeuristic heuristic;
+	private AstarHeuristic turnHeuristic;
 
 	public Location(int inx, int iny, char typey){
 		x = inx;
@@ -58,6 +59,10 @@ public class Location{
 	}
 	public char getClassifier(){
 		return classifier;
+	}
+
+	public void setTurnHeuristic(AstarHeuristic h){
+		turnHeuristic = h;
 	}
 
 	public void setHeuristic(AstarHeuristic h){

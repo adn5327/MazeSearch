@@ -7,12 +7,12 @@ public class AstarHeuristic{
 
 	private int astardist;
 
-	public AstarHeuristic(Location loc, Maze maze, int distToCur, int type){
+	public AstarHeuristic(Location loc, Maze maze, int distToCur, int type, int curCost){
 
 		if(type == 0)
 			astardist = Heuristic.manhattanDistance(loc, maze) + distToCur;
 		else
-			astardist = Heuristic.euclideanDistance(loc, maze) + distToCur;
+			astardist = curCost * (Heuristic.manhattanDistance(loc, maze) + distToCur);
 		
 		//added "type" param to specify type of heuristic to use
 
