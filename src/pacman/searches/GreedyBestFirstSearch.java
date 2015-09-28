@@ -10,8 +10,8 @@ public class GreedyBestFirstSearch{
 		
 		PriorityQueue<Location> frontier;
 		ArrayList<Location> visited;
-		int distance;
-		int numNodes;
+		public int distance;
+		public int numNodes;
 		// Location[][] predecessors;
 		HashMap<Location, Location> predecessors;
 		public GreedyBestFirstSearch(Maze maze){
