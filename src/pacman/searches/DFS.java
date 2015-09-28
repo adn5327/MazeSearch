@@ -10,15 +10,16 @@ public class DFS{
 		ArrayList<Location> visited;
 		int distance;
 		int numNodes;
-		Location[][] predecessors;
+		// Location[][] predecessors;
 
 		public DFS(Maze maze){
 			frontier = new Stack<Location>();
 			visited = new ArrayList<Location>();
-			predecessors = new Location[maze.width][maze.height];
+			// predecessors = new Location[maze.width][maze.height];
+			predecessors = new HashMap<Location, Location>();
 			//if the maze stores the goal, should the find solution even return a location?
 			Location end = findSolution(maze);
-			if(end != null) printSolution(maze);
+			if(end != null) printSolution(maze, end);
 			else distance = -1;
 		}
 
@@ -36,7 +37,7 @@ public class DFS{
 				for(int i = 0; i<adjacents.size(); i++){
 					Location temp = adjacents.get(i);
 					if((temp.getClassifier() == ' ' || temp.getClassifier() == '.') && (!visited.contains(temp))){
-						predecessors[temp.getx()][temp.gety()] = cur;
+						predecessors.put(temp, cur);
 						frontier.push(temp);
 						visited.add(temp);
 						if(temp.isGoal(maze)) return temp;
@@ -49,16 +50,14 @@ public class DFS{
 
 		//modifies the maze to actually put dots on the visited locations.
 		//the array of predecessors is particularly helpful here
-		public void printSolution(Maze maze){
-			int curX = maze.getGoal().getx();
-			int curY = maze.getGoal().gety();
+		public void printSolution(Maze maze, Location cur){
 			distance = 0;
 
-			while(curX != maze.getStart().getx() && curY != maze.getStart().gety()){
+			while(predecessors.containsKey(cur)){
 				distance++;
-				maze.representation[curX][curY].setClassifier('.');
-				curX = predecessors[curX][curY].getx();
-				curY = predecessors[curX][curY].gety();
+				cur = predecessors.get(cur);
+				if(!cur.equals(maze.getStart()))
+					cur.setClassifier('.');
 			}
 		}
 
