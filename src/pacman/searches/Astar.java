@@ -8,15 +8,15 @@ import java.util.*;
 public class Astar{
 
 		
-		PriorityQueue<Location> frontier;
-		ArrayList<Location> visited;
-		int distance;
-		int numNodes;
+		public PriorityQueue<Location> frontier;
+		public ArrayList<Location> visited;
+		public int distance;
+		public int numNodes;
 		// Location[][] predecessors;
-		HashMap<Location, Location> predecessors;
-		char direction = 'r';
-		int turnCosts;
-		int forwardCosts;
+		public HashMap<Location, Location> predecessors;
+		public char direction = 'r';
+		public int turnCosts;
+		public int forwardCosts;
 
 		public Astar(Maze maze){
 			frontier = new PriorityQueue<Location>(maze.width * maze.height, new AstarComparator(maze));
