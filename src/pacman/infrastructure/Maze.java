@@ -58,7 +58,6 @@ public class Maze{
 	public void populateMaze(BufferedReader reader) throws IOException{
 		String line = reader.readLine();
 		int rowNum = 0;
-		Location ghostS = new Location (0,0,' ');
 		while(line != null){
 
 			for(int i = 0; i<width; i++){
@@ -67,20 +66,17 @@ public class Maze{
 				char curChar = line.charAt(i);
 				representation[i][rowNum] = new Location(i, rowNum, curChar);
 
-				if(curChar == 'G') ghostS = representation[i][rowNum];
+				if(curChar == 'G') ghostStart = representation[i][rowNum];
 				if(curChar == 'P') start = representation[i][rowNum];
 				if(curChar == '.') goal = representation[i][rowNum];
 
-				if(ghostS != null){
-					ghostStart = ghostS;
-				}
+
 			}
 			rowNum++;
 			line = reader.readLine();
 
 		}
 		//System.out.println("ghost x: " + ghostStart.getx() + "   " + "ghost y: " +  ghostStart.gety());
-		}
 	}
 
 	public void getNumRows(BufferedReader reader) throws IOException{
