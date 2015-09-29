@@ -17,7 +17,7 @@ public class Astar{
 	public char direction = 'r';
 	public int turnCosts;
 	public int forwardCosts;
-
+   //commit
 	public Astar(Maze maze){
 		frontier = new PriorityQueue<Location>(maze.width * maze.height, new AstarComparator(maze));
 		visited = new ArrayList<Location>();
