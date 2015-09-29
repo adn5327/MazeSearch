@@ -15,7 +15,7 @@ public class Maze{
 
 	private Location start;
 	private Location goal;
-	private Location ghostStart;
+	private Location ghostStart;//for commit
 
 	/*
 	 * current plan is to have the location class
