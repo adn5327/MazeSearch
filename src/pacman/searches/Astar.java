@@ -56,7 +56,7 @@ public class Astar{
 			numNodes++;
 			for(int i = 0; i<adjacents.size(); i++){
 				Location temp = adjacents.get(i);
-				if((temp.getClassifier() == ' ' || temp.getClassifier() == '.') && (!visited.contains(temp))){
+				if((temp.getClassifier() == ' ' || temp.getClassifier() == '.' || temp.getClassifier() == 'g' || temp.getClassifier() == 'G') && (!visited.contains(temp))){
 					//account for ghost characters!!!! otherwise you might never find a solution
 					//if it requires you to go through a ghosts location!!!!
 					predecessors.put(temp,cur);
